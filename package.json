@@ -1,0 +1,40 @@
+{
+  "name": "webiscard-api",
+  "version": "0.1.0",
+  "description": "",
+  "main": "index.js",
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "scripts": {
+    "start:dev": "NODE_ENV=development nodemon src/web/api/server.ts",
+    "lint": "eslint \"src/**/*.{js,mjs,cjs,ts,mts}\"",
+    "lint:fix": "eslint \"src/**/*.{js,mjs,cjs,ts,mts}\" --fix"
+  },
+  "dependencies": {
+    "@fastify/cookie": "^9.2.0",
+    "@fastify/cors": "^8.4.2",
+    "@fastify/error": "^3.4.1",
+    "@fastify/one-line-logger": "^1.2.0",
+    "@fastify/type-provider-typebox": "^3.5.0",
+    "@prisma/client": "^5.7.0",
+    "@sinclair/typebox": "^0.31.28",
+    "awilix": "^9.0.0",
+    "bcryptjs": "^2.4.3",
+    "fastify": "^4.25.0",
+    "fastify-plugin": "^4.5.1"
+  },
+  "devDependencies": {
+    "@types/bcryptjs": "^2.4.6",
+    "@types/node": "^20.10.4",
+    "dotenv": "^16.3.1",
+    "eslint": "^8.41.0",
+    "eslint-kit": "^10.0.0",
+    "nodemon": "^3.0.2",
+    "prettier": "^3.0.0",
+    "prisma": "^5.7.0",
+    "ts-node": "^10.9.2",
+    "tsconfig-paths": "^4.2.0",
+    "typescript": "^5.3.3"
+  }
+}

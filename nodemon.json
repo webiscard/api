@@ -1,0 +1,9 @@
+{
+  "watch": ["src/", "prisma/", "types/"],
+  "ext": "*",
+  "exitcrash": false,
+  "ignore": ["*.test.ts"],
+  "execMap": {
+    "ts": "node -r dotenv/config -r tsconfig-paths/register -r ts-node/register"
+  }
+}
