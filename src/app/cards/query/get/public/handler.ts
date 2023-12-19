@@ -9,7 +9,7 @@ export function makeGetPublicCardQuery({
 }: Pick<Dependencies, 'cardsRepository'>) {
   return async function getPublicCardQuery({ username }: GetPublicCardQuery) {
     const card = await cardsRepository.findByUsername({ username })
-    if (!card) throw CardNotFound()
+    if ((card && !card.isPublished) || !card) throw CardNotFound()
 
     const publicData = card.publicData
 
