@@ -10,18 +10,14 @@ export function makeCardsController({ cards }: Dependencies) {
   ) {
     const updateCardBody = Type.Object({
       username: Type.Optional(Type.String()),
-      profilePicture: Type.Optional(
-        Type.Object({
-          size: Type.Optional(
-            Type.Union([
-              Type.Literal('sm'),
-              Type.Literal('md'),
-              Type.Literal('lg'),
-            ]),
-          ),
-          filename: Type.Optional(Type.String()),
-        }),
+      avatarSize: Type.Optional(
+        Type.Union([
+          Type.Literal('sm'),
+          Type.Literal('md'),
+          Type.Literal('lg'),
+        ]),
       ),
+      avatarFilename: Type.Optional(Type.String()),
       name: Type.Optional(Type.String({ maxLength: 40 })),
       description: Type.Optional(Type.String({ maxLength: 110 })),
       socialNetworks: Type.Optional(
@@ -34,15 +30,7 @@ export function makeCardsController({ cards }: Dependencies) {
           }),
         ),
       ),
-      background: Type.Optional(
-        Type.Object({
-          type: Type.Union([
-            Type.Literal('CustomImage'),
-            Type.Literal('Gradient'),
-          ]),
-          value: Type.String(),
-        }),
-      ),
+      background: Type.Optional(Type.String()),
     })
 
     fastify.patch<{ Body: Static<typeof updateCardBody> }>(
@@ -51,7 +39,8 @@ export function makeCardsController({ cards }: Dependencies) {
       async (request, reply) => {
         const {
           username,
-          profilePicture,
+          avatarSize,
+          avatarFilename,
           name,
           socialNetworks,
           description,
@@ -61,7 +50,8 @@ export function makeCardsController({ cards }: Dependencies) {
         await cards.mutations.update({
           userId: request.user!.id,
           username,
-          profilePicture,
+          avatarSize,
+          avatarFilename,
           name,
           socialNetworks,
           description,

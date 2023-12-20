@@ -37,3 +37,15 @@ export const NotEmptyPayload = createError(
   "Payload shouldn't be empty",
   400,
 )
+
+export const ForbiddenMimetype = createError(
+  'FST_FORBIDDEN_MIMETYPE',
+  'This type of file is not allowed',
+  403,
+)
+
+export const ImageNotFound = createError(
+  'FST_IMAGE_NOT_FOUND',
+  'Image with given filename not found',
+  404,
+)

@@ -6,6 +6,7 @@ import Fastify from 'fastify'
 import { Dependencies } from '@/web/crosscutting/container'
 import * as controllers from './controllers'
 import * as plugins from './plugins'
+import { ajvFilePlugin, fastifyMultipart } from '@fastify/multipart'
 
 export function makeApp(dependencies: Dependencies) {
   const fastify = Fastify({
@@ -13,6 +14,9 @@ export function makeApp(dependencies: Dependencies) {
       transport: {
         target: '@fastify/one-line-logger',
       },
+    },
+    ajv: {
+      plugins: [ajvFilePlugin],
     },
   }).withTypeProvider<TypeBoxTypeProvider>()
 
@@ -43,10 +47,20 @@ export function makeApp(dependencies: Dependencies) {
     credentials: true,
   })
 
+  fastify.register(fastifyMultipart, {
+    attachFieldsToBody: true,
+    sharedSchemaId: '#multipartSharedSchema',
+    limits: {
+      files: 1,
+      fileSize: 1024 * 1024 * 4
+    }
+  })
+
   fastify.register(plugins.makeSessionPlugin(dependencies))
 
   fastify.register(controllers.makeAuthController(dependencies))
   fastify.register(controllers.makeCardsController(dependencies))
+  fastify.register(controllers.makeImagesController(dependencies))
 
   return fastify
 }

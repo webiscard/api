@@ -15,12 +15,8 @@ export function makeCardsRepository({
               id: userId,
             },
           },
-          publicData: {
-            profilePicture: {},
-          },
-          draftData: {
-            profilePicture: {},
-          },
+          publicData: {},
+          draftData: {},
         },
       })
     },

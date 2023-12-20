@@ -1,23 +1,11 @@
 import { CardNotFound, NotEmptyPayload } from '@/app/common/exceptions'
-import {
-  Background,
-  Card,
-  ProfilePictureSize,
-  SocialNetwork,
-} from '@/domain/entities/card'
+import { Card, CardData } from '@/domain/entities/card'
 import { Dependencies } from '@/infra/di'
 
 type UpdateCardMutation = Pick<Card, 'userId'> &
+  Partial<Pick<Card, 'username'>> &
   Partial<{
-    username: string
-    profilePicture: Partial<{
-      filename: string
-      size: ProfilePictureSize
-    }>
-    name: string
-    description: string
-    socialNetworks: SocialNetwork[]
-    background: Background
+    [Property in keyof CardData]: NonNullable<CardData[Property]>
   }>
 
 export function makeUpdateCardMutation({
@@ -42,7 +30,7 @@ export function makeUpdateCardMutation({
     await cardsRepository.updateCard({
       userId,
       username,
-      draftData: !draftDataEmpty ? draftData : undefined,
+      draftData,
     })
   }
 }

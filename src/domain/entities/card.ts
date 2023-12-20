@@ -1,9 +1,4 @@
-export type ProfilePictureSize = 'sm' | 'md' | 'lg'
-
-export interface ProfilePicture {
-  filename: string | null
-  size: ProfilePictureSize
-}
+export type AvatarSize = 'sm' | 'md' | 'lg'
 
 export interface SocialNetwork {
   id: string
@@ -12,19 +7,13 @@ export interface SocialNetwork {
   enabled: boolean
 }
 
-export type BackgroundType = 'CustomImage' | 'Gradient'
-
-export interface Background {
-  type: BackgroundType
-  value: string
-}
-
 export interface CardData {
-  profilePicture: ProfilePicture
+  avatarSize: AvatarSize
+  avatarFilename: string | null
   name: string
   description: string
   socialNetworks: SocialNetwork[]
-  background: Background | null
+  background: string | null
 }
 
 export interface Card {
